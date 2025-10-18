@@ -1,9 +1,11 @@
-//Overall Function to start everything
-
+//First attempt at script. Create variables to be used. 
 let compAction = "";
-//Step1: Function to generate a random input for the computer. 
-function computerInputGen() {
+let humanAction = "";
+let humanScore = 0;
+let compScore = 0;
 
+//Step1: Create function to generate a random input for the computer. 
+function computerInputGen() {
 //Generate a random number between 0 and 1
 let randomNum = Math.floor(Math.random() * 100) + 1;
 console.log(randomNum);
@@ -18,22 +20,38 @@ if (randomNum < 33) {
     return compAction = "paper";
 }
 }
-// Try to store a variable input from the previous function:
-
-
 //Step 2: Function to get human input using a prompt
+// For this project assume the input is proper.
+function humanInputGen () {
+    humanAction = prompt("rock, scissors, or paper?");
+    console.log(humanAction);
+    return humanAction;
+}
+// Note, could a while loop be used to check that the input is correct?
+// e.g. while input =! rock/scissors/paper, humanAction = prompt("rock, scissors, or paper?")
 
-//Prompt the user for a string input
 
-//Return this value as the output of the function
-
-
-//Step 3: Ensure the outputs of the previous functions are the inputs
-// for the game.
-
-//Compare the strings to determine the winner.
+//Step 3: Outputs of Step 1 and 2 should be the inputs for Step 3. 
+// Compare the strings to determine the winner.
 //Use IF statements, else if, and an else statement to declare a tie
-
+function findWinner (humanAction, compAction) {
+    if (((humanAction === "rock") && (compAction === "scissors")) ||
+        ((humanAction === "scissors") && (compAction === "paper")) ||
+        ((humanAction === "paper") && (compAction === "rock"))) {
+            humanScore += 1;
+            console.log("You win this round!");
+        }   else if  (((humanAction === "paper") && (compAction === "scissors")) ||
+        ((humanAction === "rock") && (compAction === "paper")) ||
+        ((humanAction === "scissors") && (compAction === "rock"))) {
+            compScore += 1;
+            console.log("Nice try!");
+        }   else {
+            console.log("It's a tie");
+        }
+        console.log(`human's score is: ${humanScore}`);
+        console.log(`computer's score is: ${compScore}`);
+    }
+        
 //Give a point to the winner score. 1 point for the human or computer
 //Store this value into a variable which can be added to later
 //from multiple rounds or games
@@ -43,9 +61,24 @@ if (randomNum < 33) {
 //After each round, the score needs to be recorded, and also
 //new inputs need to be prompted from the human and randomly
 //generated from the machine.
+function playRound () {
+    let count = 0;
+    while (count < 5) {
+        humanInputGen();
+        computerInputGen();
+        findWinner(humanAction, compAction);
+        count++;
+    }
+    //Declare the overall winner at the end of the 5 rounds. 
+    if (humanScore > compScore) {
+        console.log("You win!!");
+    }   else if (compScore > humanScore) {
+        console.log("Nice try, would you like to play again?");
+    }   else {
+        console.log("It's a tie!");
+    }
+}
+//Call the function playRound() to start the game!
+playRound();
 
-
-//Declare the overall winner at the end of the 5 rounds. 
-
-
-
+//}
